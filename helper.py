@@ -15,13 +15,13 @@ llm = ChatGoogleGenerativeAI(
 def restaurant_finder(cuisine):
     prompt_template_name = PromptTemplate(
         input_variables=["cuisine"],
-        template="I want to open a {cuisine} restaurant. Suggest a name."
+        template="I want to open a {cuisine} restaurant. Suggest only one name."
     )
     name_chain = LLMChain(llm=llm, prompt=prompt_template_name, output_key="restaurant_name")
 
     prompt_template_items = PromptTemplate(
-        input_variables=["restaurant_name"],
-        template="List some popular {restaurant_name} dishes. In a comma-separated list."
+        input_variables=["cuisine"],
+        template="List some popular {cuisine} dishes. In a comma-separated list."
     )
     items_chain = LLMChain(llm=llm, prompt=prompt_template_items, output_key="menu_items")
 
